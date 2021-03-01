@@ -1,13 +1,13 @@
-package com.example.cityweather.Activities
+package com.example.cityweather.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cityweather.Adapters.CitiesAdapter
+import com.example.cityweather.adapters.CitiesAdapter
 import com.example.cityweather.CityApplication
 import com.example.cityweather.R
-import com.example.cityweather.Repositories.CitiesRepository
+import com.example.cityweather.repositories.CitiesRepository
 
 class MainActivity : AppCompatActivity() {
 

@@ -1,4 +1,4 @@
-package com.example.cityweather.Activities
+package com.example.cityweather.activities
 
 import android.content.Context
 import android.content.Intent
@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
 import com.example.cityweather.CityApplication
 import com.example.cityweather.R
-import com.example.cityweather.Repositories.CitiesRepository
+import com.example.cityweather.repositories.CitiesRepository
 
 class DetailsActivity : AppCompatActivity() {
 

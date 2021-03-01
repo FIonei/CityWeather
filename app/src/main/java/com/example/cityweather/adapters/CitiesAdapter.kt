@@ -1,13 +1,12 @@
-package com.example.cityweather.Adapters
+package com.example.cityweather.adapters
 
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cityweather.DataClasses.City
+import com.example.cityweather.dataClasses.City
 import com.example.cityweather.R
 
 class CitiesAdapter(private val onItemClick: (City) -> Unit) : RecyclerView.Adapter<CitiesHolder>() {
@@ -39,13 +38,13 @@ class CitiesAdapter(private val onItemClick: (City) -> Unit) : RecyclerView.Adap
         fun bind(city: City) {
             nameText.text = itemView.context.getString(R.string.name_format, city.name)
             if (city.temperature > 0) {temperatureText.text = itemView.context.getString(R.string.plus_format, city.temperature)
-                temperatureText.setTextColor(Color.parseColor("red"))
-                commentaryText.setTextColor(Color.parseColor("red"))
+                temperatureText.setTextColor(ContextCompat.getColor(itemView.context, R.color.red))
+                commentaryText.setTextColor(ContextCompat.getColor(itemView.context, R.color.red))
             }
             else {
                 temperatureText.text = itemView.context.getString(R.string.zero_format, city.temperature)
-                temperatureText.setTextColor(Color.parseColor("blue"))
-                commentaryText.setTextColor(Color.parseColor("blue"))
+                temperatureText.setTextColor(ContextCompat.getColor(itemView.context, R.color.blue))
+                commentaryText.setTextColor(ContextCompat.getColor(itemView.context, R.color.blue))
             }
             commentaryText.text = city.commentary
             itemView.setOnClickListener { onItemClick(city) }

@@ -1,4 +1,4 @@
-package com.example.cityweather.DataClasses
+package com.example.cityweather.dataClasses
 
 data class City (
     val id: Long,

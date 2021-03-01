@@ -1,6 +1,6 @@
-package com.example.cityweather.Repositories
+package com.example.cityweather.repositories
 
-import com.example.cityweather.DataClasses.City
+import com.example.cityweather.dataClasses.City
 
 class CitiesRepository {
 
