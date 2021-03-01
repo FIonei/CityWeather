@@ -4,5 +4,6 @@ data class City (
     val id: Long,
     val name: String,
     val temperature: Int,
-    val commentary: String?) {
+    val commentary: String?,
+    val weather: String = "sunny") {
 }

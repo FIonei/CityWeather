@@ -3,11 +3,14 @@ package com.example.cityweather.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cityweather.dataClasses.City
 import com.example.cityweather.R
+import com.example.cityweather.getImage
 
 class CitiesAdapter(private val onItemClick: (City) -> Unit) : RecyclerView.Adapter<CitiesHolder>() {
 
@@ -34,6 +37,7 @@ class CitiesAdapter(private val onItemClick: (City) -> Unit) : RecyclerView.Adap
         private val nameText = itemView.findViewById<TextView>(R.id.name_text)
         private val temperatureText = itemView.findViewById<TextView>(R.id.temperature_text)
         private val commentaryText = itemView.findViewById<TextView>(R.id.commentary_input)
+        private val weatherIcon = itemView.findViewById<ImageView>(R.id.weather_icon)
 
         fun bind(city: City) {
             nameText.text = itemView.context.getString(R.string.name_format, city.name)
@@ -47,6 +51,8 @@ class CitiesAdapter(private val onItemClick: (City) -> Unit) : RecyclerView.Adap
                 commentaryText.setTextColor(ContextCompat.getColor(itemView.context, R.color.blue))
             }
             commentaryText.text = city.commentary
+
+            weatherIcon.setImageDrawable(getDrawable(itemView.context, getImage(city.weather)))
             itemView.setOnClickListener { onItemClick(city) }
         }
     }

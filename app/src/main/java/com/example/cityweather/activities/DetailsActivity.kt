@@ -5,10 +5,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+//import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
 import com.example.cityweather.CityApplication
 import com.example.cityweather.R
+//import com.example.cityweather.getImage
+
 import com.example.cityweather.repositories.CitiesRepository
 
 class DetailsActivity : AppCompatActivity() {
@@ -28,6 +31,7 @@ class DetailsActivity : AppCompatActivity() {
 
     private lateinit var nameText: TextView
     private lateinit var temperatureText: TextView
+    //private lateinit var weatherIcon: ImageView
     private lateinit var commentaryInput: EditText
     private lateinit var backButton: Button
 
@@ -39,6 +43,7 @@ class DetailsActivity : AppCompatActivity() {
 
         nameText = findViewById(R.id.name_text)
         temperatureText = findViewById(R.id.temperature_text)
+        //weatherIcon = findViewById(R.id.weather_icon)
         commentaryInput = findViewById(R.id.commentary_input)
         backButton = findViewById(R.id.backButton)
 
@@ -64,6 +69,7 @@ class DetailsActivity : AppCompatActivity() {
             if (city.temperature > 0) temperatureText.text = getString(R.string.plus_format, city.temperature)
             else temperatureText.text = getString(R.string.zero_format, city.temperature)
             commentaryInput.setText(city.commentary)
+            //weatherIcon.setImageDrawable(getDrawable(getImage(city.weather)))
         } else {
             finish()
         }
