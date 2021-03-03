@@ -1,5 +1,6 @@
 package com.example.cityweather.activities
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -8,12 +9,11 @@ import android.widget.EditText
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
-import com.example.cityweather.CityApplication
-import com.example.cityweather.R
-import com.example.cityweather.getImage
+import com.example.cityweather.*
+import com.example.cityweather.dataClasses.City
 import com.example.cityweather.repositories.CitiesRepository
 
-class DetailsActivity : AppCompatActivity() {
+class DetailsActivity : AppCompatActivity(), DetailsView {
 
     companion object {
 
@@ -26,7 +26,12 @@ class DetailsActivity : AppCompatActivity() {
         }
     }
 
-    private lateinit var citiesRepository: CitiesRepository
+    private val presenter by lazy{
+        DetailPresenter(
+            repository = (application as CityApplication).cityRepository,
+            personId = intent.getLongExtra(EXTRA_ID, 0)
+        )
+    }
 
     private lateinit var nameText: TextView
     private lateinit var temperatureText: TextView
@@ -38,39 +43,34 @@ class DetailsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_details)
 
-        citiesRepository = (application as CityApplication).cityRepository
+        initViews()
+        presenter.attachView(this)
+    }
 
+    private fun initViews() {
         nameText = findViewById(R.id.name_text)
         temperatureText = findViewById(R.id.temperature_text)
         weatherIcon = findViewById(R.id.weather_icon)
         commentaryInput = findViewById(R.id.commentary_input)
         backButton = findViewById(R.id.backButton)
-
-        backButton.setOnClickListener {
-            val id = intent.getLongExtra(EXTRA_ID, 0)
-            val city = citiesRepository.getCity(id)
-            if (city != null) {
-                val updatedCity = city.copy(commentary = commentaryInput.text.toString())
-                citiesRepository.setCity(updatedCity)
-            }
-            finish()
-        }
-
-        initCity()
     }
 
-    private fun initCity() {
-        val id = intent.getLongExtra(EXTRA_ID, 0)
-        val city = citiesRepository.getCity(id)
-
-        if (city != null) {
+    @SuppressLint("UseCompatLoadingForDrawables")
+    override fun bindCity(city: City){
             nameText.text = getString(R.string.name_format, city.name)
             if (city.temperature > 0) temperatureText.text = getString(R.string.plus_format, city.temperature)
             else temperatureText.text = getString(R.string.zero_format, city.temperature)
             commentaryInput.setText(city.commentary)
             weatherIcon.setImageDrawable(getDrawable(getImage(city.weather)))
-        } else {
-            finish()
+
+        backButton.setOnClickListener{
+            val editedCity = city.copy(commentary = commentaryInput.text.toString())
+            presenter.saveCity(editedCity)
         }
     }
+
+    override fun closeScreen(){
+        finish()
+    }
+
 }

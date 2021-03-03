@@ -6,24 +6,26 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.cityweather.adapters.CitiesAdapter
 import com.example.cityweather.CityApplication
+import com.example.cityweather.ListPresenter
+import com.example.cityweather.ListView
 import com.example.cityweather.R
-import com.example.cityweather.repositories.CitiesRepository
+import com.example.cityweather.dataClasses.City
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ListView {
 
-    private lateinit var cityRepository: CitiesRepository
-
+    private val presenter by lazy {
+        ListPresenter((application as CityApplication).cityRepository)
+    }
     private lateinit var cityList: RecyclerView
 
     private val adapter = CitiesAdapter {
-        DetailsActivity.start(this, it.id)
+        presenter.onCityClicked(it)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        cityRepository = (application as CityApplication).cityRepository
+        presenter.attachView(this)
 
         cityList = findViewById(R.id.cities_list)
         cityList.adapter = adapter
@@ -32,6 +34,19 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        adapter.cities = cityRepository.getCities()
+        presenter.onViewResumed()
+    }
+
+    override fun bindCitiesList(list: List<City>) {
+        adapter.cities = list
+    }
+
+    override fun openCityDetailsScreen(cityId: Long) {
+        DetailsActivity.start(this, cityId)
+    }
+
+    override fun onDestroy() {
+        presenter.destroy()
+        super.onDestroy()
     }
 }
