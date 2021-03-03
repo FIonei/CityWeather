@@ -16,9 +16,9 @@ class CitiesRepository {
             )
 
         fun setCity(city: City) {
-            val editedPersonIndex = cities.indexOfFirst { it.id == city.id }
-            if (editedPersonIndex >= 0) {
-                cities[editedPersonIndex] = city
+            val editedCityIndex = cities.indexOfFirst { it.id == city.id }
+            if (editedCityIndex >= 0) {
+                cities[editedCityIndex] = city
             }
         }
 

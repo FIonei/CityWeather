@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Weather in Cities</string>
     <string name="name_format">City: %1$s</string>
-    <string name="zero_format">%1$d</string>
+    <string name="zero_format">%1$d°</string>
     <string name="plus_format">+%1$d°</string>
     <string name="commentary_absent">No comments</string>
 </resources>
