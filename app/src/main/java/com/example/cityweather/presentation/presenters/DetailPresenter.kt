@@ -1,7 +1,8 @@
-package com.example.cityweather
+package com.example.cityweather.presentation.presenters
 
-import com.example.cityweather.dataClasses.City
-import com.example.cityweather.repositories.CitiesRepository
+import com.example.cityweather.presentation.activities.DetailsView
+import com.example.cityweather.domain.City
+import com.example.cityweather.data.CitiesRepository
 
 class DetailPresenter(
     private val repository: CitiesRepository,

@@ -3,5 +3,6 @@
     <string name="name_format">City: %1$s</string>
     <string name="zero_format">%1$d</string>
     <string name="plus_format">+%1$d°</string>
+    <string name="weather">Weather in cities</string>
     <string name="commentary_absent">No comments</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.example.cityweather.activities
+package com.example.cityweather.presentation.activities
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -10,8 +10,8 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
 import com.example.cityweather.*
-import com.example.cityweather.dataClasses.City
-import com.example.cityweather.repositories.CitiesRepository
+import com.example.cityweather.domain.City
+import com.example.cityweather.presentation.presenters.DetailPresenter
 
 class DetailsActivity : AppCompatActivity(), DetailsView {
 

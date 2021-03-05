@@ -1,4 +1,6 @@
-package com.example.cityweather
+package com.example.cityweather.presentation.presenters
+
+import com.example.cityweather.presentation.BaseView
 
 open class BasePresenter<T : BaseView> {
 
