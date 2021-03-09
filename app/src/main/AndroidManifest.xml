@@ -13,9 +13,9 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
-        <activity android:name="com.example.cityweather.presentation.activities.DetailsActivity">
+        <activity android:name=".presentation.detail.DetailsActivity">
         </activity>
-        <activity android:name="com.example.cityweather.presentation.activities.MainActivity">
+        <activity android:name=".presentation.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
