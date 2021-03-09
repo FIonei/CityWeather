@@ -1,4 +1,4 @@
-package com.example.cityweather.activities
+package com.example.cityweather.presentation.detail
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -6,18 +6,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.ImageView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import android.widget.TextView
-import com.example.cityweather.CityApplication
-import com.example.cityweather.DetailsViewModel
 import com.example.cityweather.R
-import com.example.cityweather.dataClasses.City
+import com.example.cityweather.domain.City
 import com.example.cityweather.getImage
-import com.example.cityweather.repositories.CitiesRepository
 
 class DetailsActivity : AppCompatActivity() {
 
@@ -33,15 +28,8 @@ class DetailsActivity : AppCompatActivity() {
     }
 
     private val viewModel: DetailsViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-                modelClass
-                    .getConstructor(CitiesRepository::class.java, Long::class.java)
-                    .newInstance(
-                        (application as CityApplication).cityRepository,
-                        intent.getLongExtra(EXTRA_ID, 0)
-                    )
-        }
+        val id = intent.getLongExtra(EXTRA_ID, 0)
+        DetailsViewModelFactory(id)
     }
 
     private lateinit var nameText: TextView
@@ -52,12 +40,11 @@ class DetailsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        initViews()
         setContentView(R.layout.activity_details)
         viewModel.city.observe(this, ::bindCity)
         viewModel.closeScreenEvent.observe(this) { closeScreen() }
 
-
+        initViews()
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -69,7 +56,7 @@ class DetailsActivity : AppCompatActivity() {
         weatherIcon.setImageDrawable(getDrawable(getImage(city.weather)))
 
         backButton.setOnClickListener {
-             val updatedCity = city.copy()//commentary = commentaryInput.text.toString())
+             val updatedCity = city.copy(commentary = commentaryInput.text.toString())
              viewModel.saveCity(updatedCity)
         }
     }
@@ -78,6 +65,7 @@ class DetailsActivity : AppCompatActivity() {
         nameText = findViewById(R.id.name_text)
         temperatureText = findViewById(R.id.temperature_text)
         commentaryInput = findViewById(R.id.commentary_input)
+        weatherIcon = findViewById(R.id.weather_icon)
         backButton = findViewById(R.id.backButton)
     }
 

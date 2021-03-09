@@ -1,4 +1,4 @@
-package com.example.cityweather
+package com.example.cityweather.presentation
 
 class LiveEvent : SingleLiveEvent<Unit>() {
 

@@ -1,12 +1,15 @@
-package com.example.cityweather
+package com.example.cityweather.presentation.detail
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.cityweather.dataClasses.City
-import com.example.cityweather.repositories.CitiesRepository
+import com.example.cityweather.domain.City
+import com.example.cityweather.domain.GetCityUseCase
+import com.example.cityweather.domain.SetCityUseCase
+import com.example.cityweather.presentation.LiveEvent
 
 class DetailsViewModel(
-    private val repository: CitiesRepository,
+    getCityUseCase: GetCityUseCase,
+    private val setCityUseCase: SetCityUseCase,
     cityId: Long
 ) : ViewModel() {
 
@@ -15,7 +18,7 @@ class DetailsViewModel(
     val closeScreenEvent = LiveEvent()
 
     init {
-        val city = repository.getCity(cityId)
+        val city = getCityUseCase(cityId)
 
         if (city != null) {
             this.city.value = city
@@ -26,7 +29,7 @@ class DetailsViewModel(
     }
 
     fun saveCity(editedCity: City) {
-        repository.setCity(editedCity)
+        setCityUseCase(editedCity)
         closeScreenEvent()
     }
 }

@@ -3,13 +3,12 @@ package com.example.cityweather.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.example.cityweather.dataClasses.City
+import com.example.cityweather.domain.City
 import com.example.cityweather.R
 import com.example.cityweather.getImage
 
@@ -51,7 +50,7 @@ class CitiesAdapter(private val onClick: (City) -> Unit) : RecyclerView.Adapter<
                 temperatureText.setTextColor(ContextCompat.getColor(itemView.context, R.color.blue))
                 commentaryText.setTextColor(ContextCompat.getColor(itemView.context, R.color.blue))
             }
-            commentaryText.text = city.commentary
+            commentaryText.text = city.commentary ?: itemView.context.getString(R.string.commentary_absent)
             weatherIcon.setImageDrawable(getDrawable(itemView.context, getImage(city.weather)))
             itemView.setOnClickListener { onItemClick(city) }
         }
