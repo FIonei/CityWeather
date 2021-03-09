@@ -26,45 +26,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private lateinit var peopleList: RecyclerView
-
-    private val adapter = CitiesAdapter {
-        DetailsActivity.start(this, it.id)
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        viewModel.citiesList.observe(this, ::bindCityList)
-
-        peopleList = findViewById(R.id.cities_list)
-        peopleList.adapter = adapter
-    }
-
-    private fun bindCityList(list: List<City>) {
-        adapter.cities = list
-    }
-
-    override fun onResume() {
-        super.onResume()
-        viewModel.loadCities()
-    }
-}
-    /*private val viewModel: ListViewModel by viewModels {
-        object : ViewModelProvider.Factory {
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-                modelClass
-                    .getConstructor(CitiesRepository::class.java)
-                    .newInstance(
-                        (application as CityApplication).cityRepository
-                    )
-        }
-    }
-
     private lateinit var cityList: RecyclerView
 
     private val adapter = CitiesAdapter {
-        //viewModel.openDetailsScreen(it)
         DetailsActivity.start(this, it.id)
     }
 
@@ -73,7 +37,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         viewModel.citiesList.observe(this, ::bindCities)
-        //viewModel.openDetailsScreenEvent.observe(this, ::openDetailsScreen)
 
         cityList = findViewById(R.id.cities_list)
         cityList.adapter = adapter
@@ -86,8 +49,4 @@ class MainActivity : AppCompatActivity() {
     private fun bindCities(list: List<City>) {
         adapter.cities = list
     }
-
-    //private fun openDetailsScreen(cityId: Long){
-    //    DetailsActivity.start(this, cityId)
-    //}
-}*/
+}

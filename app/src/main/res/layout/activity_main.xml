@@ -7,6 +7,7 @@
         android:layout_height="match_parent"
         tools:context=".activities.MainActivity" android:orientation="vertical">
     <androidx.recyclerview.widget.RecyclerView
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:id="@+id/cities_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

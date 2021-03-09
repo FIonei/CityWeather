@@ -8,14 +8,10 @@ import com.example.cityweather.repositories.CitiesRepository
 class ListViewModel(private val repository: CitiesRepository) : ViewModel() {
 
     val citiesList = MutableLiveData<List<City>>()
-    //val openDetailsScreenEvent = MutableLiveData<Long>()
 
     fun loadCities() {
         val cities = repository.getCities()
 
         citiesList.value = cities
     }
-    //fun openDetailsScreen(city: City){
-        //openDetailsScreenEvent.value = city.id
-    //}
 }
